@@ -15,12 +15,11 @@ HDC100X hdc(0x43);
 
 
 
-
-
-
 void setup() {
 
+
 /* Light Sensor */
+
 
 Serial.begin(9600);
 Wire.begin();
@@ -33,26 +32,28 @@ Wire.write(0x80 | REG_CONFIG);
 Wire.write(0x00); // 400 ms
 Wire.endTransmission();
 
+
 /* Air Pressure + temperature */
+
 
 if (!bmp.begin()) {
   Serial.println("BMP init failed!");
 }
 bmp.setOversampling(4); // select resolution of the measurements 
 
-/* Humidity */
+
+* Humidity */
+
 
 hdc.begin(HDC100X_TEMP_HUMI, HDC100X_14BIT, DISABLE);
 }
 
 
-
-
-
-
 void loop() {
 
+
 /* Light sensor */
+
 
 Wire.beginTransmission(I2C_ADDR);
 Wire.write(0x80 | REG_DATALOW);
@@ -70,7 +71,9 @@ uint32_t lux;
 lux = (high << 8) || (low << 0);
 lux *= 1; // Multiplier for 400ms  
 
+
 /* Air Pressure + Temperature */  
+
 
 double temp, pressure;
 char bmpStatus = bmp.startMeasurment();
@@ -91,11 +94,11 @@ Serial.print("Pressure :");
 Serial.print(pressure);
 Serial.println(" hPa");
 
+
 /* Humidity */
+
 
 Serial.print(hdc.getHumi());
 Serial.println(" % of humidity");
 Serial.println();
 }
-
-
