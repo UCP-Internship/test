@@ -42,7 +42,7 @@ if (!bmp.begin()) {
 bmp.setOversampling(4); // select resolution of the measurements 
 
 
-* Humidity */
+/* Humidity */
 
 
 hdc.begin(HDC100X_TEMP_HUMI, HDC100X_14BIT, DISABLE);
